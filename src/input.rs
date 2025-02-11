@@ -4,7 +4,34 @@ use source::Location;
 use std::str::Chars;
 use std::fmt;
 use std::collections::VecDeque;
+pub struct Location {
+    line: usize,
+    column: usize,
+}
 
+impl Location {
+    pub fn new(line: usize, column: usize) -> Self {
+        Self { line, column }
+    }
+
+    pub fn start() -> Self {
+        Self { line: 1, column: 0 }
+    }
+
+    pub fn next(&self) -> Self {
+        Self {
+            line: self.line,
+            column: self.column + 1,
+        }
+    }
+
+    pub fn next_line(&self) -> Self {
+        Self {
+            line: self.line + 1,
+            column: 0,
+        }
+    }
+}
 pub struct CharsReader<'a> {
     input_chars: Chars<'a>,
     lookahead: VecDeque<char>,
